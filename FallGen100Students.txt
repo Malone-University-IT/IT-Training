@@ -1,0 +1,15 @@
+SELECT c.[ID_NUM]
+      ,x.IDENTIFIER
+      ,[YR_CDE]
+      ,[TRM_CDE]
+      ,[CRS_CDE]
+
+      
+  FROM [TmsEPrd].[dbo].[z_mlc_tableau_course_history] c
+  join ALTERNATE_IDENTIFIER x on c.ID_NUM = x.ID_NUM
+
+  where YR_CDE = IIF(MONTH(SYSDATETIME())>6, Year(SYSDATETIME()), Year(SYSDATETIME())-1)
+  and TRM_CDE = 10
+  and CRS_CDE like ('GEN  100%')
+  and (DROP_FLAG is null or DROP_FLAG = '')
+  and CRS_CANCEL_FLG = 'N'
